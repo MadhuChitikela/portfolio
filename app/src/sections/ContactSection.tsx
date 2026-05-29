@@ -146,7 +146,7 @@ export default function ContactSection() {
             <Github className="w-5 h-5" />
           </a>
           <a
-            href="https://huggingface.co/chitikelamadhu"
+            href="https://huggingface.co/madhuchitikela"
             target="_blank"
             rel="noopener noreferrer"
             className="p-2 text-text-secondary hover:text-accent-amber transition-colors"

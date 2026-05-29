@@ -179,7 +179,7 @@ export default function HeroSection() {
               </a>
 
               <a
-                href="https://linkedin.com/in/madhuchitikela"
+                href="https://www.linkedin.com/in/madhu-chitikela/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 px-5 py-3 border-[1.5px] border-border-subtle text-text-primary text-[0.9375rem] font-medium rounded-full hover:border-text-muted transition-colors duration-200"

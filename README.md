@@ -4,7 +4,7 @@ Welcome to my professional engineering portfolio repository. I am a pre-final ye
 
 🚀 **Live Portfolio Repository:** [github.com/MadhuChitikela/portfolio](https://github.com/MadhuChitikela/portfolio)  
 🤗 **HuggingFace Profile:** [huggingface.co/madhuchitikela](https://huggingface.co/madhuchitikela)  
-💼 **LinkedIn:** [linkedin.com/in/madhuchitikela](https://linkedin.com/in/madhuchitikela)  
+💼 **LinkedIn:** [linkedin.com/in/madhu-chitikela](https://www.linkedin.com/in/madhu-chitikela/)  
 
 ---
 

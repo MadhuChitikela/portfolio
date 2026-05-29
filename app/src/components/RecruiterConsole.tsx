@@ -195,7 +195,7 @@ export default function RecruiterConsole() {
                 </a>
 
                 <a
-                  href="https://linkedin.com/in/madhuchitikela"
+                  href="https://www.linkedin.com/in/madhu-chitikela/"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="w-full flex items-center justify-center gap-2.5 py-3.5 border-[1.5px] border-border-subtle hover:border-[#0A66C2] text-text-primary text-[0.9375rem] font-medium rounded-2xl transition-colors bg-white/40"
