@@ -1,0 +1,227 @@
+@font-face {
+  font-family: 'Geist Sans';
+  src: url('/fonts/Geist-Variable.woff2') format('woff2');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Geist Mono';
+  src: url('/fonts/GeistMono-Variable.woff2') format('woff2');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 40 20% 99%;
+    --foreground: 0 0% 10%;
+    --card: 0 0% 100%;
+    --card-foreground: 0 0% 10%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 10%;
+    --primary: 36 60% 52%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 40 10% 95%;
+    --secondary-foreground: 0 0% 10%;
+    --muted: 40 10% 95%;
+    --muted-foreground: 30 4% 60%;
+    --accent: 252 20% 55%;
+    --accent-foreground: 0 0% 100%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 36 10% 90%;
+    --input: 36 10% 90%;
+    --ring: 36 60% 52%;
+    --radius: 0.625rem;
+    --sidebar-background: 40 20% 99%;
+    --sidebar-foreground: 0 0% 10%;
+    --sidebar-primary: 36 60% 52%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 40 10% 95%;
+    --sidebar-accent-foreground: 0 0% 10%;
+    --sidebar-border: 36 10% 90%;
+    --sidebar-ring: 36 60% 52%;
+
+    /* Custom design tokens */
+    --bg-primary: #FDFCFA;
+    --bg-secondary: #F5F3EF;
+    --bg-card: #FFFFFF;
+    --bg-glass: rgba(255, 255, 255, 0.72);
+    --border-subtle: #E8E5E0;
+    --border-glass: rgba(255, 255, 255, 0.50);
+    --text-primary: #1A1A1A;
+    --text-secondary: #5C5C5C;
+    --text-muted: #9B9894;
+    --accent-amber: #D4953A;
+    --accent-violet: #7C6FA7;
+    --accent-teal: #4A9B9B;
+    --accent-warm: #C4956A;
+    --page-padding-x: clamp(1.5rem, 5vw, 4rem);
+    --section-gap: clamp(5rem, 10vh, 8rem);
+    --card-padding: 2rem;
+    --card-gap: 1.5rem;
+    --nav-height: 64px;
+  }
+
+  * {
+    @apply border-border;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    font-family: 'Geist Sans', system-ui, sans-serif;
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-feature-settings: "ss01";
+    letter-spacing: -0.01em;
+    overflow-x: hidden;
+  }
+
+  ::selection {
+    background-color: rgba(212, 149, 58, 0.2);
+    color: var(--text-primary);
+  }
+}
+
+@layer components {
+  .glass {
+    background: rgba(255, 255, 255, 0.72);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.50);
+  }
+
+  .glass-card {
+    background: rgba(255, 255, 255, 0.72);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.50);
+    border-radius: 20px;
+    padding: var(--card-padding);
+    box-shadow: 0 2px 16px rgba(0, 0, 0, 0.04), inset 0 1px 0 rgba(255, 255, 255, 0.6);
+    transition: all 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+
+  .glass-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.08), 0 0 0 1px rgba(212, 149, 58, 0.15);
+  }
+
+  .section-container {
+    width: 100%;
+    padding-left: var(--page-padding-x);
+    padding-right: var(--page-padding-x);
+  }
+
+  .label-text {
+    font-family: 'Geist Mono', monospace;
+    font-size: 0.6875rem;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    line-height: 1.3;
+  }
+
+  .caption-text {
+    font-family: 'Geist Mono', monospace;
+    font-size: 0.8125rem;
+    font-weight: 400;
+    letter-spacing: 0.02em;
+    line-height: 1.4;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
+
+@media print {
+  /* 1. Ensure all elements are visible (override GSAP/Framer Motion opacity: 0 states) */
+  *,
+  .opacity-0,
+  .hero-animate,
+  .contact-card,
+  .glass-card,
+  .about-animate,
+  div,
+  section,
+  main,
+  p,
+  h1,
+  h2,
+  h3,
+  h4,
+  li {
+    opacity: 1 !important;
+    visibility: visible !important;
+    transform: none !important;
+    animation: none !important;
+    transition: none !important;
+  }
+
+  /* 2. Hide interactive 3D canvas and other non-print decorative elements */
+  canvas,
+  #canvas-container,
+  .absolute-glow,
+  .blur-3xl,
+  .pointer-events-none,
+  .animate-spin,
+  button,
+  header,
+  .header-actions,
+  .glow-blob {
+    display: none !important;
+  }
+
+  /* 3. Standardize highly legible system fonts to prevent OCR character merging */
+  body {
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif !important;
+    color: #000000 !important;
+    background: #ffffff !important;
+  }
+
+  /* 4. Fix stats layout so OCR scans them vertically and sequentially, not horizontally across columns */
+  .hero-animate.flex {
+    display: block !important;
+  }
+  .hero-animate.flex > * {
+    display: block !important;
+    margin-bottom: 1rem !important;
+    page-break-inside: avoid !important;
+  }
+
+  /* 5. Force layout grid to display cleanly as static stacked blocks */
+  .grid {
+    display: block !important;
+  }
+  .grid > * {
+    display: block !important;
+    width: 100% !important;
+    margin-bottom: 1.5rem !important;
+    page-break-inside: avoid !important;
+  }
+
+  /* 6. Standardize print border colors and strip background transparency issues */
+  .glass-card,
+  .glass,
+  .contact-card {
+    background: #ffffff !important;
+    border: 1px solid #999999 !important;
+    box-shadow: none !important;
+    color: #000000 !important;
+  }
+}
