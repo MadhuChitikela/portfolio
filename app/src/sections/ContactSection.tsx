@@ -34,40 +34,32 @@ export default function ContactSection() {
     if (!sectionRef.current || !cardsRef.current) return
 
     const headerEls = sectionRef.current.querySelectorAll('.contact-header-animate')
-    gsap.fromTo(
-      headerEls,
-      { opacity: 0, y: 25 },
-      {
-        opacity: 1,
-        y: 0,
-        duration: 0.7,
-        ease: 'power3.out',
-        stagger: 0.1,
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: 'top 75%',
-          once: true,
-        },
-      }
-    )
+    gsap.from(headerEls, {
+      opacity: 0,
+      y: 25,
+      duration: 0.7,
+      ease: 'power3.out',
+      stagger: 0.1,
+      scrollTrigger: {
+        trigger: sectionRef.current,
+        start: 'top 75%',
+        once: true,
+      },
+    })
 
     const cards = cardsRef.current.querySelectorAll('.contact-card')
-    gsap.fromTo(
-      cards,
-      { opacity: 0, y: 20 },
-      {
-        opacity: 1,
-        y: 0,
-        duration: 0.6,
-        ease: 'power3.out',
-        stagger: 0.1,
-        scrollTrigger: {
-          trigger: cardsRef.current,
-          start: 'top 85%',
-          once: true,
-        },
-      }
-    )
+    gsap.from(cards, {
+      opacity: 0,
+      y: 20,
+      duration: 0.6,
+      ease: 'power3.out',
+      stagger: 0.1,
+      scrollTrigger: {
+        trigger: cardsRef.current,
+        start: 'top 85%',
+        once: true,
+      },
+    })
   }, [])
 
   return (
@@ -83,13 +75,13 @@ export default function ContactSection() {
     >
       <div className="section-container">
         <div className="text-center max-w-[600px] mx-auto">
-          <p className="contact-header-animate label-text text-accent-amber opacity-0">
+          <p className="contact-header-animate label-text text-accent-amber">
             GET IN TOUCH
           </p>
-          <h2 className="contact-header-animate text-[clamp(2rem,4vw,3rem)] font-normal tracking-tight leading-tight text-text-primary mt-3 opacity-0">
+          <h2 className="contact-header-animate text-[clamp(2rem,4vw,3rem)] font-normal tracking-tight leading-tight text-text-primary mt-3">
             Let's build something together
           </h2>
-          <p className="contact-header-animate text-base text-text-secondary mt-3 opacity-0">
+          <p className="contact-header-animate text-base text-text-secondary mt-3">
             Open to AI/ML engineering roles, internships, and collaborative projects
           </p>
         </div>
@@ -105,7 +97,7 @@ export default function ContactSection() {
               <a
                 key={card.label}
                 href={card.href}
-                className="contact-card bg-white border border-border-subtle rounded-2xl p-6 min-w-[200px] text-center hover:-translate-y-1 hover:shadow-lg transition-all duration-300 opacity-0"
+                className="contact-card bg-white border border-border-subtle rounded-2xl p-6 min-w-[200px] text-center hover:-translate-y-1 hover:shadow-lg transition-all duration-300"
               >
                 <Icon className="w-6 h-6 text-accent-amber mx-auto" />
                 <p className="caption-text text-text-muted mt-4">{card.label}</p>

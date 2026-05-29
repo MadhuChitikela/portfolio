@@ -12,37 +12,29 @@ export default function AboutSection() {
   useEffect(() => {
     if (!leftRef.current || !rightRef.current || !sectionRef.current) return
 
-    gsap.fromTo(
-      leftRef.current,
-      { opacity: 0, x: -30 },
-      {
-        opacity: 1,
-        x: 0,
-        duration: 0.8,
-        ease: 'power3.out',
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: 'top 75%',
-          once: true,
-        },
-      }
-    )
+    gsap.from(leftRef.current, {
+      opacity: 0,
+      x: -30,
+      duration: 0.8,
+      ease: 'power3.out',
+      scrollTrigger: {
+        trigger: sectionRef.current,
+        start: 'top 75%',
+        once: true,
+      },
+    })
 
-    gsap.fromTo(
-      rightRef.current,
-      { opacity: 0, x: 30 },
-      {
-        opacity: 1,
-        x: 0,
-        duration: 0.8,
-        ease: 'power3.out',
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: 'top 75%',
-          once: true,
-        },
-      }
-    )
+    gsap.from(rightRef.current, {
+      opacity: 0,
+      x: 30,
+      duration: 0.8,
+      ease: 'power3.out',
+      scrollTrigger: {
+        trigger: sectionRef.current,
+        start: 'top 75%',
+        once: true,
+      },
+    })
   }, [])
 
   return (
@@ -59,7 +51,7 @@ export default function AboutSection() {
       <div className="section-container">
         <div className="flex flex-col lg:flex-row gap-12 lg:gap-16">
           {/* Left column */}
-          <div ref={leftRef} className="w-full lg:w-1/2 opacity-0">
+          <div ref={leftRef} className="w-full lg:w-1/2">
             <p className="label-text text-accent-amber">ABOUT</p>
             <h2 className="text-[clamp(2rem,4vw,3rem)] font-normal tracking-tight leading-tight text-text-primary mt-3">
               Engineering-first mindset
@@ -87,7 +79,7 @@ export default function AboutSection() {
           </div>
 
           {/* Right column — Code snippet */}
-          <div ref={rightRef} className="w-full lg:w-1/2 opacity-0">
+          <div ref={rightRef} className="w-full lg:w-1/2">
             <div className="bg-[#F8F6F3] rounded-2xl p-6 font-mono text-[0.8125rem] leading-[1.6] overflow-x-auto">
               <pre className="text-text-primary">
                 <code>
@@ -138,9 +130,13 @@ export default function AboutSection() {
                   {'\n'}
                   {'        '}
                   <span className="text-text-primary">self</span>.
-                  <span>accuracy</span> ={' '}
-                  <span className="text-accent-teal">0.9998</span>{' '}
-                  <span className="text-text-muted">{'# 99.98%'}</span>
+                  <span>max_retries</span> ={' '}
+                  <span className="text-accent-teal">3</span>
+                  {'\n'}
+                  {'        '}
+                  <span className="text-text-primary">self</span>.
+                  <span>fallback_active</span> ={' '}
+                  <span className="text-accent-teal">True</span>
                 </code>
               </pre>
             </div>

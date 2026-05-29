@@ -17,28 +17,24 @@ export default function ProjectCard({ project, index }: ProjectCardProps) {
 
   useEffect(() => {
     if (!cardRef.current) return
-    gsap.fromTo(
-      cardRef.current,
-      { opacity: 0, y: 40 },
-      {
-        opacity: 1,
-        y: 0,
-        duration: 0.7,
-        ease: 'power3.out',
-        delay: index * 0.12,
-        scrollTrigger: {
-          trigger: cardRef.current,
-          start: 'top 85%',
-          once: true,
-        },
-      }
-    )
+    gsap.from(cardRef.current, {
+      opacity: 0,
+      y: 40,
+      duration: 0.7,
+      ease: 'power3.out',
+      delay: index * 0.12,
+      scrollTrigger: {
+        trigger: cardRef.current,
+        start: 'top 85%',
+        once: true,
+      },
+    })
   }, [index])
 
   return (
     <div
       ref={cardRef}
-      className="glass-card relative flex flex-col h-full opacity-0"
+      className="glass-card relative flex flex-col h-full"
     >
       {/* Badge */}
       <span className="absolute top-4 right-4 bg-[rgba(212,149,58,0.1)] text-accent-amber label-text px-3 py-1 rounded-full">

@@ -12,6 +12,7 @@ export default function HeroSection() {
   const contentRef = useRef<HTMLDivElement>(null)
   const sphereWrapperRef = useRef<HTMLDivElement>(null)
   const entranceRef = useRef<HTMLDivElement>(null)
+  const mobileEntranceRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     if (!contentRef.current) return
@@ -61,26 +62,34 @@ export default function HeroSection() {
     }
   }, [])
 
-  // Sphere/portrait entrance animation
+  // Sphere/portrait entrance animation (Desktop)
   useEffect(() => {
     if (!entranceRef.current) return
-    gsap.fromTo(
-      entranceRef.current,
-      { opacity: 0, scale: 0.8 },
-      {
-        opacity: 1,
-        scale: 1,
-        duration: 2,
-        ease: 'elastic.out(1, 0.5)',
-        delay: 0.3,
-      }
-    )
+    gsap.from(entranceRef.current, {
+      opacity: 0,
+      scale: 0.8,
+      duration: 2,
+      ease: 'elastic.out(1, 0.5)',
+      delay: 0.3,
+    })
   }, [])
 
-  // Scroll fade and subtle parallax for portrait
+  // Mobile Sphere/portrait entrance animation
+  useEffect(() => {
+    if (!mobileEntranceRef.current) return
+    gsap.from(mobileEntranceRef.current, {
+      opacity: 0,
+      scale: 0.8,
+      duration: 2,
+      ease: 'elastic.out(1, 0.5)',
+      delay: 0.3,
+    })
+  }, [])
+
+  // Scroll fade and subtle parallax for portrait (Desktop only)
   useEffect(() => {
     if (!sphereWrapperRef.current || !sectionRef.current) return
-    gsap.to(sphereWrapperRef.current, {
+    const trigger = gsap.to(sphereWrapperRef.current, {
       opacity: 0,
       y: -50,
       ease: 'none',
@@ -91,6 +100,11 @@ export default function HeroSection() {
         scrub: true,
       },
     })
+
+    return () => {
+      trigger.scrollTrigger?.kill()
+      trigger.kill()
+    }
   }, [])
 
   const scrollToProjects = () => {
@@ -134,7 +148,7 @@ export default function HeroSection() {
             </h1>
 
             <p className="hero-animate mt-5 text-[1.125rem] text-text-secondary max-w-[550px] opacity-0 leading-relaxed">
-              GIET Engineering College B.Tech (CGPA: 8.96, Expected June 2027) · Oracle Certified Generative AI Professional · Developer of 5 production-grade deployed AI systems with 100% service uptime architectures.
+              GIET Engineering College B.Tech (CGPA: 8.96, Expected June 2027) · Oracle Certified Generative AI Professional · Seeking AI/ML Engineering Internships & Co-ops. Developer of 5 production-grade deployed AI systems featuring high-availability failover architectures.
             </p>
 
             {/* Stats */}
@@ -197,15 +211,15 @@ export default function HeroSection() {
             </div>
           </div>
 
-          {/* Right column — Premium Interactive Portrait */}
-          <div className="w-full lg:w-[55%] h-[55vh] lg:h-[calc(100vh-64px)] relative flex items-center justify-center">
+          {/* Right column — Premium Interactive Portrait (Desktop) */}
+          <div className="hidden lg:flex w-full lg:w-[55%] h-[calc(100vh-64px)] relative items-center justify-center">
             <div
               ref={sphereWrapperRef}
               className="w-full h-full flex items-center justify-center"
             >
               <div
                 ref={entranceRef}
-                className="relative w-[280px] h-[340px] sm:w-[350px] sm:h-[420px] lg:w-[380px] lg:h-[450px] flex items-center justify-center opacity-0"
+                className="relative w-[380px] h-[450px] flex items-center justify-center"
               >
                 {/* Glowing decorative background blobs */}
                 <div 
@@ -306,6 +320,72 @@ export default function HeroSection() {
                   <div className="w-2.5 h-2.5 rounded-full bg-accent-amber animate-pulse" />
                   <span className="caption-text text-text-primary font-medium text-[0.75rem]">🚀 5+ Deployed Systems</span>
                 </motion.div>
+              </div>
+            </div>
+          </div>
+
+          {/* Right column — Premium Interactive Portrait (Mobile/Tablet - No scroll disappearance) */}
+          <div className="flex lg:hidden w-full h-[50vh] sm:h-[55vh] relative items-center justify-center mt-6 lg:mt-0">
+            <div className="w-full h-full flex items-center justify-center">
+              <div
+                ref={mobileEntranceRef}
+                className="relative w-[260px] h-[310px] sm:w-[320px] sm:h-[380px] flex items-center justify-center"
+              >
+                {/* Glowing decorative background blobs */}
+                <div 
+                  className="absolute -inset-4 rounded-[3rem] blur-3xl opacity-20 animate-pulse pointer-events-none"
+                  style={{
+                    background: 'linear-gradient(135deg, var(--accent-amber) 0%, var(--accent-violet) 100%)',
+                    animationDuration: '6s'
+                  }}
+                />
+                
+                {/* Abstract modern design circles behind the image */}
+                <div className="absolute w-[110%] h-[110%] border border-dashed border-border-subtle rounded-full pointer-events-none animate-[spin_60s_linear_infinite]" />
+                <div className="absolute w-[90%] h-[90%] border border-border-subtle rounded-full pointer-events-none animate-[spin_40s_linear_infinite_reverse]" />
+                
+                {/* Floating portrait card using Framer Motion */}
+                <motion.div
+                  className="relative w-full h-full rounded-[2.5rem] p-3 glass border border-border-glass shadow-[0_20px_50px_rgba(0,0,0,0.06)] overflow-hidden"
+                  animate={{ 
+                    y: [0, -10, 0]
+                  }}
+                  transition={{
+                    duration: 6,
+                    ease: "easeInOut",
+                    repeat: Infinity,
+                  }}
+                  style={{
+                    perspective: 1000
+                  }}
+                >
+                  {/* Portrait Image */}
+                  <div className="w-full h-full rounded-[2rem] overflow-hidden relative bg-[#FAF9F5]">
+                    <img
+                      src="/profile.png"
+                      alt="Madhu Chitikela"
+                      className="w-full h-full object-cover object-center"
+                      onError={(e) => {
+                        e.currentTarget.style.display = 'none';
+                        const parent = e.currentTarget.parentElement;
+                        if (parent) {
+                          const fallback = document.createElement('div');
+                          fallback.className = 'w-full h-full flex flex-col items-center justify-center bg-gradient-to-br from-accent-amber/10 to-accent-violet/10 text-text-primary text-center p-6';
+                          fallback.innerHTML = `
+                            <div class="w-16 h-16 rounded-full bg-accent-amber/20 flex items-center justify-center mb-3">
+                              <span class="text-2xl font-bold text-accent-amber">MC</span>
+                            </div>
+                            <h3 class="text-base font-medium">Madhu Chitikela</h3>
+                            <p class="text-xs text-text-secondary mt-1">AI/ML Engineer</p>
+                          `;
+                          parent.appendChild(fallback);
+                        }
+                      }}
+                    />
+                  </div>
+                </motion.div>
+
+
               </div>
             </div>
           </div>
