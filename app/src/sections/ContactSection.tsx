@@ -2,6 +2,7 @@ import { useRef, useEffect } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { Mail, Phone, MapPin, Download, Linkedin, Github } from 'lucide-react'
+import { motion } from 'framer-motion'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -31,7 +32,7 @@ export default function ContactSection() {
   const cardsRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
-    if (!sectionRef.current || !cardsRef.current) return
+    if (!sectionRef.current) return
 
     const headerEls = sectionRef.current.querySelectorAll('.contact-header-animate')
     gsap.from(headerEls, {
@@ -42,20 +43,6 @@ export default function ContactSection() {
       stagger: 0.1,
       scrollTrigger: {
         trigger: sectionRef.current,
-        start: 'top 75%',
-        once: true,
-      },
-    })
-
-    const cards = cardsRef.current.querySelectorAll('.contact-card')
-    gsap.from(cards, {
-      opacity: 0,
-      y: 20,
-      duration: 0.6,
-      ease: 'power3.out',
-      stagger: 0.1,
-      scrollTrigger: {
-        trigger: cardsRef.current,
         start: 'top 85%',
         once: true,
       },
@@ -91,18 +78,49 @@ export default function ContactSection() {
           ref={cardsRef}
           className="flex flex-col sm:flex-row justify-center gap-6 mt-10"
         >
-          {contactCards.map((card) => {
+          {contactCards.map((card, index) => {
             const Icon = card.icon
+            const isLocation = card.label === 'Location'
+            const CardComponent = isLocation ? motion.div : motion.a
+            const cardProps = isLocation 
+              ? {} 
+              : { href: card.href, target: '_blank', rel: 'noopener noreferrer' }
+
             return (
-              <a
+              <CardComponent
                 key={card.label}
-                href={card.href}
-                className="contact-card bg-white border border-border-subtle rounded-2xl p-6 min-w-[200px] text-center hover:-translate-y-1 hover:shadow-lg transition-all duration-300"
+                {...cardProps}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-40px" }}
+                transition={{ 
+                  duration: 0.6, 
+                  ease: [0.16, 1, 0.3, 1], // Custom cubic-bezier for easeOutExpo
+                  delay: index * 0.12 
+                }}
+                className={`contact-card bg-white border rounded-2xl p-6 min-w-[220px] text-center hover:-translate-y-1 hover:shadow-lg transition-all duration-300 relative overflow-hidden flex flex-col items-center justify-center ${
+                  isLocation 
+                    ? 'border-accent-amber/60 shadow-[0_8px_30px_rgba(212,149,58,0.06)]' 
+                    : 'border-border-subtle hover:border-text-muted cursor-pointer'
+                }`}
               >
+                {isLocation && (
+                  <span className="absolute top-3 right-3 flex h-2 w-2">
+                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-accent-teal opacity-75"></span>
+                    <span className="relative inline-flex rounded-full h-2 w-2 bg-accent-teal"></span>
+                  </span>
+                )}
+                
                 <Icon className="w-6 h-6 text-accent-amber mx-auto" />
-                <p className="caption-text text-text-muted mt-4">{card.label}</p>
-                <p className="text-sm font-medium text-text-primary mt-1">{card.value}</p>
-              </a>
+                
+                <p className={`caption-text mt-4 font-semibold tracking-wider ${isLocation ? 'text-accent-amber' : 'text-text-muted'}`}>
+                  {card.label}
+                </p>
+                
+                <p className="text-sm font-bold text-text-primary mt-1">
+                  {card.value}
+                </p>
+              </CardComponent>
             )
           })}
         </div>

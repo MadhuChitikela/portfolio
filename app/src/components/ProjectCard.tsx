@@ -1,11 +1,7 @@
-import { useRef, useEffect } from 'react'
-import gsap from 'gsap'
-import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import TechTag from './TechTag'
 import { ExternalLink, Github } from 'lucide-react'
 import type { Project } from '../types'
-
-gsap.registerPlugin(ScrollTrigger)
+import { motion } from 'framer-motion'
 
 interface ProjectCardProps {
   project: Project
@@ -13,27 +9,16 @@ interface ProjectCardProps {
 }
 
 export default function ProjectCard({ project, index }: ProjectCardProps) {
-  const cardRef = useRef<HTMLDivElement>(null)
-
-  useEffect(() => {
-    if (!cardRef.current) return
-    gsap.from(cardRef.current, {
-      opacity: 0,
-      y: 40,
-      duration: 0.7,
-      ease: 'power3.out',
-      delay: index * 0.12,
-      scrollTrigger: {
-        trigger: cardRef.current,
-        start: 'top 85%',
-        once: true,
-      },
-    })
-  }, [index])
-
   return (
-    <div
-      ref={cardRef}
+    <motion.div
+      initial={{ opacity: 0, y: 40 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-60px" }}
+      transition={{ 
+        duration: 0.7, 
+        ease: [0.16, 1, 0.3, 1], 
+        delay: index * 0.12 
+      }}
       className="glass-card relative flex flex-col h-full"
     >
       {/* Badge */}
@@ -93,6 +78,6 @@ export default function ProjectCard({ project, index }: ProjectCardProps) {
           </a>
         )}
       </div>
-    </div>
+    </motion.div>
   )
 }
