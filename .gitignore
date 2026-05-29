@@ -1,0 +1,12 @@
+# Ignore all PDF resume assets in root and public folders
+*.pdf
+Madhu_Chitikela_Resume.pdf
+app/public/Madhu_Chitikela_Resume.pdf
+
+# Ignore node modules and logs
+node_modules/
+app/node_modules/
+dist/
+app/dist/
+*.log
+.system_generated/
